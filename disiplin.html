@@ -67,7 +67,7 @@
   var content = document.getElementById('content');
   var daftar = [], rekapIni = null, baris = [], galat = '';
   var filter = { cari: '', predikat: '', urut: 'nama', arah: 1 };
-  var kolomHilang = [];
+  var kolomHilang = [], serverLama = false;
   var KOLOM = [
     { k: 'alpa', t: 'Tidak Hadir (Alpa)', c: 'dp-n--alpa' },
     { k: 'terlambat', t: 'Terlambat', c: 'dp-n--warn' },
@@ -111,7 +111,7 @@
   async function muatRekap(id) {
     try {
       var out = await panggil('lihat', { id: id });
-      rekapIni = out; rekapIni.id = id; baris = out.data || []; kolomHilang = out.kolom_hilang || []; galat = '';
+      rekapIni = out; rekapIni.id = id; baris = out.data || []; kolomHilang = out.kolom_hilang || []; serverLama = (out.kolom_hilang === undefined); galat = '';
     } catch (e) { rekapIni = null; baris = []; kolomHilang = []; galat = e.message || String(e); }
   }
 
@@ -126,6 +126,7 @@
     }).join('');
     content.innerHTML =
       (galat ? '<div class="dp-msg">' + esc(galat) + '</div>' : '') +
+      (serverLama && baris.length ? '<div class="dp-msg"><b>Edge Function rekap-disiplin masih versi lama</b>, jadi angka kehadiran belum dikirim. Deploy ulang: <code>supabase functions deploy rekap-disiplin</code> (atau salin isi supabase/functions/rekap-disiplin/index.ts di Dashboard → Edge Functions), lalu muat ulang halaman ini dengan Ctrl+F5.</div>' : '') +
       (kolomHilang.length && baris.length ? '<div class="dp-warn"><b>Kolom belum terbaca dari rekap ini:</b> ' + esc(kolomHilang.map(function (m) { return NAMA_KOLOM[m] || m; }).join(', ')) + '. Biasanya rekap lama yang disimpan sebelum kolom itu ada. Minta admin menekan <b>Simpan rekap</b> ulang di Rekap Absen. Kolom yang tidak terbaca ditampilkan “–”.</div>' : '') +
       (!daftar.length && !galat ? '<div class="dp-kosong">Belum ada rekap tersimpan. Rekap muncul di sini setelah admin menekan <b>Simpan rekap</b> di Rekap Absen.</div>' :
       '<div class="dp-toolbar"><select id="dpRekap" aria-label="Pilih rekap">' + opsi + '</select>' +
