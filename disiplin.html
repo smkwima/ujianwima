@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rekap Kehadiran Guru & Staf — PORTAL DATA DAN PENILAIAN SMK WIDYA MANDALA TAMBAK</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=23">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script src="mobile.js?v=1" defer></script>
+<script src="bottomnav.js?v=10" defer></script>
+<style>
+  .dp-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; align-items: center; }
+  .dp-toolbar select, .dp-toolbar input { padding: 8px 10px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); font: 600 12.5px var(--font-body); background: var(--surface); color: var(--ink); }
+  .dp-toolbar select#dpRekap { min-width: 240px; max-width: 100%; }
+  .dp-toolbar input[type="search"] { min-width: 190px; }
+  .dp-toolbar .sp { flex: 1; }
+  .dp-count { font-size: 12px; color: var(--ink-soft); }
+  .dp-b { display: inline-block; padding: 3px 12px; border-radius: 999px; font-size: 11.5px; font-weight: 700; border: 1px solid transparent; white-space: nowrap; }
+  .dp-b--sangat-baik { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
+  .dp-b--baik { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+  .dp-b--cukup { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+  .dp-b--kurang { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+  .dp-b--none { background: var(--surface-tint-strong); color: var(--ink-soft); border-color: var(--border); }
+  .dp-msg { padding: 10px 14px; border-radius: 10px; font-size: 13px; line-height: 1.5; background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; margin-bottom: 14px; }
+  .dp-warn { padding: 10px 14px; border-radius: 10px; font-size: 13px; line-height: 1.5; background: #fffbeb; border: 1px solid #fde68a; color: #92400e; margin-bottom: 14px; }
+  .dp-tbl th.dp-num, .dp-tbl td.dp-num { text-align: center; white-space: nowrap; }
+  .dp-tbl th.dp-urut { cursor: pointer; user-select: none; }
+  .dp-tbl th.dp-urut:hover { color: var(--primary); }
+  .dp-tbl th .dp-pnl { font-size: 10px; opacity: .6; margin-left: 3px; }
+  .dp-n0 { color: var(--ink-faint, #94a3b8); }
+  .dp-n--alpa { color: #b91c1c; font-weight: 800; }
+  .dp-n--warn { color: #b45309; font-weight: 800; }
+  .dp-n--info { color: #1d4ed8; font-weight: 800; }
+  .dp-tbl tfoot td { font-weight: 800; background: var(--surface-tint-strong); }
+  .dp-kosong { padding: 34px 16px; text-align: center; color: var(--ink-soft); font-size: 13.5px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <img class="sidebar__brand-logo" src="assets/logo.png" alt="Logo">
+      <div class="sidebar__brand-text"><span class="sidebar__brand-mark">Rekap Kehadiran</span><span class="sidebar__brand-school">SMK Widya Mandala Tambak</span></div>
+    </div>
+    <div class="sidebar__role"><i data-lucide="fingerprint" style="width:13px;height:13px;"></i> <span id="roleLabel">Kepala Sekolah</span></div>
+    <nav class="menu-list" id="menu">
+      <div class="sidebar__section-label">Kepegawaian</div>
+      <a href="#" class="menu-item menu-item--active"><i data-lucide="fingerprint" class="menu-icon"></i><span class="menu-item__title">Rekap Kehadiran</span></a>
+      <div class="sidebar__section-label">Lainnya</div>
+      <a href="portal.html" class="menu-item"><i data-lucide="layout-grid" class="menu-icon"></i><span class="menu-item__title">Menu Utama</span></a>
+    </nav>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div><div class="topbar__title">Rekap Kehadiran Guru &amp; Staf</div><div class="topbar__meta" id="metaHal">Memuat…</div></div>
+      <div class="user-chip"><div class="user-chip__text"><div class="user-chip__name" id="userName">Memuat...</div><div class="user-chip__role" id="userRole">Kepala Sekolah</div>
+        <a href="#" id="logoutBtn" class="user-chip__logout"><i data-lucide="log-out" style="width:13px;height:13px;"></i> Keluar</a></div></div>
+    </div>
+    <div class="content" id="content"><div class="panel-note">Memuat…</div></div>
+  </div>
+</div>
+
+<script>
+  var content = document.getElementById('content');
+  var daftar = [], rekapIni = null, baris = [], galat = '';
+  var filter = { cari: '', predikat: '', urut: 'nama', arah: 1 };
+  var kolomHilang = [];
+  var KOLOM = [
+    { k: 'alpa', t: 'Tidak Hadir (Alpa)', c: 'dp-n--alpa' },
+    { k: 'terlambat', t: 'Terlambat', c: 'dp-n--warn' },
+    { k: 'pulang_awal', t: 'Pulang Lebih Awal', c: 'dp-n--warn' },
+    { k: 'ijin', t: 'Ijin', c: 'dp-n--info' },
+    { k: 'sakit', t: 'Sakit', c: 'dp-n--info' },
+    { k: 'dinas_luar', t: 'Dinas Luar', c: 'dp-n--info' }
+  ];
+  var NAMA_KOLOM = { alpa: 'Tidak hadir (alpa)', terlambat: 'Terlambat', pulang_awal: 'Pulang lebih awal', ijin: 'Ijin', sakit: 'Sakit', dinas_luar: 'Dinas luar' };
+  var URUT_PRED = { 'Sangat Baik': 0, 'Baik': 1, 'Cukup': 2, 'Kurang': 3 };
+  var PRED = { 'Sangat Baik': 'sangat-baik', 'Baik': 'baik', 'Cukup': 'cukup', 'Kurang': 'kurang' };
+  var URUT = ['Sangat Baik', 'Baik', 'Cukup', 'Kurang'];
+
+  function esc(s) { return (s === null || s === undefined) ? '' : String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function ikon() { if (window.lucide && lucide.createIcons) { try { lucide.createIcons(); } catch (e) { /* abaikan */ } } }
+  function tglId(s) {
+    if (!s) return '';
+    var d = new Date(String(s).length <= 10 ? s + 'T00:00:00' : s);
+    return isNaN(d) ? s : d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+  function badge(p) { var k = PRED[p]; return '<span class="dp-b dp-b--' + (k || 'none') + '">' + esc(p && p !== '–' ? p : 'Belum ada jadwal') + '</span>'; }
+
+  async function panggil(aksi, isi) {
+    var sesi = await supabaseClient.auth.getSession();
+    var token = sesi.data && sesi.data.session ? sesi.data.session.access_token : null;
+    if (!token) { location.href = 'index.html'; throw new Error('Sesi habis.'); }
+    var resp;
+    try {
+      resp = await fetch(SUPABASE_URL + '/functions/v1/rekap-disiplin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, 'apikey': SUPABASE_ANON_KEY },
+        body: JSON.stringify(Object.assign({ aksi: aksi }, isi || {}))
+      });
+    } catch (e) { throw new Error('Tidak bisa terhubung ke server. Periksa koneksi internet.'); }
+    var out = await resp.json().catch(function () { return {}; });
+    if (resp.status === 404 && !out.error) throw new Error('Fitur ini belum diaktifkan. Minta admin men-deploy Edge Function rekap-disiplin (lihat CARA_DEPLOY_REKAP_DISIPLIN.md).');
+    if (!resp.ok || !out.success) throw new Error(out.error || ('HTTP ' + resp.status));
+    return out;
+  }
+
+  async function muatRekap(id) {
+    try {
+      var out = await panggil('lihat', { id: id });
+      rekapIni = out; rekapIni.id = id; baris = out.data || []; kolomHilang = out.kolom_hilang || []; galat = '';
+    } catch (e) { rekapIni = null; baris = []; kolomHilang = []; galat = e.message || String(e); }
+  }
+
+  function tampil() {
+    var opsi = daftar.map(function (x) {
+      return '<option value="' + esc(x.id) + '"' + (rekapIni && String(x.id) === String(rekapIni.id) ? ' selected' : '') + '>' + esc(x.judul) + ' (' + esc(tglId(x.periode_awal)) + ' – ' + esc(tglId(x.periode_akhir)) + ')</option>';
+    }).join('');
+    var hitung = { 'Sangat Baik': 0, 'Baik': 0, 'Cukup': 0, 'Kurang': 0 };
+    baris.forEach(function (b) { if (hitung[b.predikat] !== undefined) hitung[b.predikat]++; });
+    var kartu = URUT.map(function (p) {
+      return '<div class="stat-card"><div class="stat-card__label">' + p + '</div><div class="stat-card__value">' + hitung[p] + '</div></div>';
+    }).join('');
+    content.innerHTML =
+      (galat ? '<div class="dp-msg">' + esc(galat) + '</div>' : '') +
+      (kolomHilang.length && baris.length ? '<div class="dp-warn"><b>Kolom belum terbaca dari rekap ini:</b> ' + esc(kolomHilang.map(function (m) { return NAMA_KOLOM[m] || m; }).join(', ')) + '. Biasanya rekap lama yang disimpan sebelum kolom itu ada. Minta admin menekan <b>Simpan rekap</b> ulang di Rekap Absen. Kolom yang tidak terbaca ditampilkan “–”.</div>' : '') +
+      (!daftar.length && !galat ? '<div class="dp-kosong">Belum ada rekap tersimpan. Rekap muncul di sini setelah admin menekan <b>Simpan rekap</b> di Rekap Absen.</div>' :
+      '<div class="dp-toolbar"><select id="dpRekap" aria-label="Pilih rekap">' + opsi + '</select>' +
+      '<select id="dpPred" aria-label="Predikat"><option value="">Semua predikat</option>' + URUT.map(function (p) { return '<option value="' + p + '"' + (filter.predikat === p ? ' selected' : '') + '>' + p + '</option>'; }).join('') + '</select>' +
+      '<input type="search" id="dpCari" placeholder="Cari nama…" value="' + esc(filter.cari) + '"><span class="sp"></span><span class="dp-count" id="dpCount"></span></div>' +
+      '<div class="stat-grid">' + kartu + '</div><div id="dpTabel"></div>');
+    isiTabel();
+    var s = document.getElementById('dpRekap');
+    if (s) s.addEventListener('change', async function () { content.innerHTML = '<div class="panel-note">Memuat…</div>'; await muatRekap(s.value); judulMeta(); tampil(); });
+    var p = document.getElementById('dpPred'); if (p) p.addEventListener('change', function () { filter.predikat = p.value; isiTabel(); });
+    var c = document.getElementById('dpCari'); if (c) c.addEventListener('input', function () { filter.cari = c.value; isiTabel(); });
+    ikon();
+  }
+  function angkaSel(v, c) {
+    if (v === null || v === undefined) return '<span class="dp-n0">–</span>';
+    return v > 0 ? '<span class="' + c + '">' + v + '</span>' : '<span class="dp-n0">0</span>';
+  }
+  function nilaiUrut(b, k) {
+    if (k === 'nama') return b.nama.toLowerCase();
+    if (k === 'predikat') return (URUT_PRED[b.predikat] !== undefined) ? URUT_PRED[b.predikat] : 9;
+    return (b[k] === null || b[k] === undefined) ? -1 : b[k];
+  }
+  function isiTabel() {
+    var w = document.getElementById('dpTabel'); if (!w) return;
+    var q = filter.cari.trim().toLowerCase();
+    var rows = baris.filter(function (b) {
+      return (!filter.predikat || b.predikat === filter.predikat) && (!q || b.nama.toLowerCase().indexOf(q) >= 0);
+    });
+    var k = filter.urut, arah = filter.arah;
+    rows = rows.slice().sort(function (a, b) {
+      var x = nilaiUrut(a, k), y = nilaiUrut(b, k);
+      if (x < y) return -1 * arah; if (x > y) return 1 * arah;
+      return a.nama.localeCompare(b.nama, 'id');
+    });
+    document.getElementById('dpCount').textContent = rows.length + ' dari ' + baris.length + ' guru & staf';
+    function th(kunci, teks, num) {
+      var pnl = filter.urut === kunci ? (filter.arah === 1 ? '▲' : '▼') : '';
+      return '<th class="dp-urut' + (num ? ' dp-num' : '') + '" data-urut="' + kunci + '" title="Urutkan">' + teks + '<span class="dp-pnl">' + pnl + '</span></th>';
+    }
+    var jml = {};
+    KOLOM.forEach(function (c) { jml[c.k] = 0; });
+    rows.forEach(function (b) { KOLOM.forEach(function (c) { if (b[c.k]) jml[c.k] += b[c.k]; }); });
+    w.innerHTML = rows.length
+      ? '<div class="table-wrap"><table class="data-table dp-tbl"><thead><tr><th>No</th>' + th('nama', 'Nama') +
+        KOLOM.map(function (c) { return th(c.k, c.t, true); }).join('') + th('predikat', 'Predikat') + '</tr></thead><tbody>' +
+        rows.map(function (b, i) {
+          return '<tr><td data-label="No">' + (i + 1) + '</td><td data-label="Nama"><b>' + esc(b.nama) + '</b></td>' +
+            KOLOM.map(function (c) { return '<td class="dp-num" data-label="' + c.t + '">' + angkaSel(b[c.k], c.c) + '</td>'; }).join('') +
+            '<td data-label="Predikat">' + badge(b.predikat) + '</td></tr>';
+        }).join('') + '</tbody><tfoot><tr><td></td><td>Jumlah</td>' +
+        KOLOM.map(function (c) { return '<td class="dp-num" data-label="' + c.t + '">' + (kolomHilang.indexOf(c.k) >= 0 ? '–' : jml[c.k]) + '</td>'; }).join('') + '<td></td></tr></tfoot></table></div>' +
+        '<div class="panel-note">Angka = jumlah hari/kali pada periode rekap yang dipilih (dari rekap fingerprint yang disimpan admin). Ijin, sakit, dan dinas luar hanya yang sudah disetujui admin. Klik judul kolom untuk mengurutkan. Predikat: Sangat Baik = tidak ada tidak hadir, terlambat, pulang cepat, atau kurang scan. Baik = tidak pernah tidak hadir dan terlambat paling banyak 25% hari terjadwal. Cukup = tidak hadir paling banyak 25%. Kurang = di atas itu.</div>'
+      : '<div class="dp-kosong">Tidak ada data yang cocok.</div>';
+    w.querySelectorAll('[data-urut]').forEach(function (h) {
+      h.addEventListener('click', function () {
+        var kk = h.getAttribute('data-urut');
+        if (filter.urut === kk) filter.arah = -filter.arah;
+        else { filter.urut = kk; filter.arah = (kk === 'nama' || kk === 'predikat') ? 1 : -1; }
+        isiTabel();
+      });
+    });
+  }
+  function judulMeta() {
+    document.getElementById('metaHal').textContent = rekapIni
+      ? rekapIni.judul + ' · ' + tglId(rekapIni.periode_awal) + ' – ' + tglId(rekapIni.periode_akhir)
+      : 'Rekap kehadiran dan predikat guru & staf dari rekap fingerprint';
+  }
+
+  (async function () {
+    var s = (await supabaseClient.auth.getSession()).data.session;
+    if (!s) { location.href = 'index.html'; return; }
+    var p = await supabaseClient.from('profiles').select('nama, role').eq('id', s.user.id).single();
+    if (p.error || !p.data || (p.data.role !== 'kepsek' && p.data.role !== 'admin')) { location.href = 'portal.html'; return; }
+    var label = p.data.role === 'admin' ? 'Admin' : 'Kepala Sekolah';
+    document.getElementById('userName').textContent = p.data.nama || s.user.email;
+    document.getElementById('userRole').textContent = label;
+    document.getElementById('roleLabel').textContent = label;
+    try {
+      var d = await panggil('daftar');
+      daftar = d.data || [];
+      if (daftar.length) await muatRekap(daftar[0].id);
+    } catch (e) { galat = e.message || String(e); }
+    judulMeta();
+    tampil();
+  })();
+
+  document.getElementById('logoutBtn').addEventListener('click', async function (e) {
+    e.preventDefault();
+    await supabaseClient.auth.signOut();
+    location.href = 'index.html';
+  });
+  ikon();
+</script>
+</body>
+</html>
