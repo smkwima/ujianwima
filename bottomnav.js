@@ -32,12 +32,16 @@
 
   // ikon tambahan untuk panel "Semua Aplikasi"
   IKON.rpp = '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/>';
+  IKON.presensi = '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>';
+  IKON.presiswa = '<path d="m16 11 2 2 4-4"/><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>';
   IKON.set = '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>';
   IKON.log = '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/>';
 
+  IKON.rekan = '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>';
   IKON.rekap = '<path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/><path d="M14 13.12c0 2.38 0 6.38-1 8.88"/><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/><path d="M2 12a10 10 0 0 1 18-6"/><path d="M2 16h.01"/><path d="M21.8 16c.2-2 .131-5.354 0-6"/><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"/><path d="M8.65 22c.21-.66.45-1.32.57-2"/><path d="M9 6.8a6 6 0 0 1 9 5.2v2"/>';
   IKON.ijin = '<path d="M4.18 4.18A2 2 0 0 0 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 1.82-1.18"/><path d="M21 15.5V6a2 2 0 0 0-2-2H9.5"/><path d="M16 2v4"/><path d="M3 10h7"/><path d="M21 10h-5.5"/><path d="m2 2 20 20"/><path d="M8 2v4"/>';
   IKON.disiplin = IKON.rekap;
+  IKON.rekapol = '<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>';
   IKON.pgd = '<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>';
   IKON.semua = IKON.menu;
   IKON.menu = '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>';
@@ -55,42 +59,52 @@
   else if (berkas === 'penugasan-admin.html') { kunciAktif = 'gp'; roleDariBerkas = 'admin'; }
   else if (berkas === 'pkl.html') { kunciAktif = 'pkl'; }
   else if (berkas === 'supervisi-admin.html') { kunciAktif = 'sup'; roleDariBerkas = 'admin'; }
-  else if (berkas === 'supervisi.html') { kunciAktif = 'sup'; roleDariBerkas = 'guru'; }
+  else if (berkas === 'supervisi.html') { kunciAktif = 'sup'; } // dipakai guru dan Kepala Sekolah: role dari akun
   else if (berkas === 'kinerja.html') { kunciAktif = 'kin'; }
+  else if (berkas === 'penilaian-rekan.html') { kunciAktif = 'rekan'; }
+  else if (berkas === 'catatan-pengawas.html') { kunciAktif = 'cat'; }
   else if (berkas === 'pelanggaran.html') { kunciAktif = 'pel'; }
   else if (berkas === 'pengaduan.html') { kunciAktif = 'pgd'; }
   else if (berkas === 'ijin.html') { kunciAktif = 'ijin'; }
+  else if (berkas === 'presensi.html') { kunciAktif = 'presensi'; }
+  else if (berkas === 'presensi-siswa.html') { kunciAktif = 'presiswa'; }
   else if (berkas === 'disiplin.html') { kunciAktif = 'disiplin'; }
   else { return; } // halaman lain (login, siswa, dll): tidak dipasang
 
   // Daftar lengkap aplikasi per peran. "bar" = boleh jadi 1 dari 2 tombol aplikasi di bar bawah;
   // "sheetSaja" = hanya ada di panel "Semua Aplikasi" (halamannya tidak memasang bar bawah).
   function daftar(role) {
-    var admin = role === 'admin' || role === 'kepsek'; // kepsek memakai halaman admin (mode lihat saja)
+    var admin = role === 'admin' || role === 'kepsek' || role === 'pengawas'; // kepsek & pengawas memakai halaman admin (mode lihat saja)
     var menu = [
       { k: 'menu',  label: 'Menu Utama',  judul: 'Menu Utama',          href: 'portal.html', warna: 'teal' },
       { k: 'bi',    label: 'Buku Induk',  judul: 'Buku Induk',          href: admin ? 'bukuinduk-admin.html' : 'bukuinduk-guru.html', warna: 'oranye' },
       { k: 'rapor', label: 'E-Rapor',     judul: 'E-Rapor',             href: admin ? 'admin.html' : 'guru.html', warna: 'hijau' },
-      { k: 'gp',    label: 'Guru',        judul: 'Guru & Penugasan',    href: role === 'kepsek' ? 'guru-penugasan.html' : 'penugasan-admin.html', warna: 'biru', hanyaPimpinan: true },
+      { k: 'gp',    label: 'Guru',        judul: 'Guru & Penugasan',    href: (role === 'kepsek' || role === 'pengawas') ? 'guru-penugasan.html' : 'penugasan-admin.html', warna: 'biru', hanyaPimpinan: true },
       { k: 'pkl',   label: 'PKL',         judul: 'Nilai PKL',           href: 'pkl.html', warna: 'biru' },
       { k: 'rpp',   label: 'RPP Maker',   judul: 'RPP Maker',           href: '#', sso: true, warna: 'ungu' },
       { k: 'sup',   label: 'Supervisi',   judul: 'Supervisi',           href: admin ? 'supervisi-admin.html' : 'supervisi.html', warna: 'ungu' },
       { k: 'kin',   label: 'Kinerja',     judul: admin ? 'Kinerja Guru' : 'Kinerja Saya', href: 'kinerja.html', warna: 'oranye' },
+      { k: 'rekan', label: 'Rekan',       judul: 'Penilaian Rekan',     href: 'penilaian-rekan.html', warna: 'ungu' },
       { k: 'pel',   label: 'Pelanggaran', judul: 'Catatan Pelanggaran', href: 'pelanggaran.html', warna: 'merah' },
       { k: 'pgd',   label: 'Pengaduan',   judul: 'Pengaduan Siswa',     href: 'pengaduan.html', warna: 'merah', sheetSaja: true, hanyaPimpinan: true },
+      { k: 'cat',   label: 'Catatan',     judul: 'Catatan Pengawas',    href: 'catatan-pengawas.html', warna: 'ungu', sheetSaja: true, hanyaCatatan: true },
+      { k: 'presensi', label: 'Presensi', judul: 'Presensi',          href: 'presensi.html', warna: 'hijau' },
+      { k: 'presiswa', label: 'Pres. Siswa', judul: 'Presensi Siswa', href: 'presensi-siswa.html', warna: 'hijau' },
       { k: 'ijin',  label: 'Ijin',        judul: 'Ijin & Dinas Luar',   href: 'ijin.html', warna: 'biru' },
       { k: 'disiplin', label: 'Disiplin', judul: 'Rekap Kedisiplinan', href: 'disiplin.html', warna: 'hijau', sheetSaja: true, hanyaKepsek: true },
+      { k: 'rekapol', label: 'Rekap Online', judul: 'Rekap Presensi Online', href: 'presensi.html#rekap', warna: 'biru', sheetSaja: true, hanyaKepsek: true },
       { k: 'set',   label: 'Pengaturan',  judul: 'Pengaturan Sekolah',  href: 'pengaturan-admin.html', warna: 'abu', sheetSaja: true, hanyaAdmin: true },
-      { k: 'rekap', label: 'Rekap Absen', judul: 'Rekap Absen Fingerprint', href: 'https://wima15.github.io/rekap-presensi/', luar: true, warna: 'hijau', sheetSaja: true, hanyaAdmin: true },
-      { k: 'log',   label: 'Log',         judul: 'Log Aktivitas',       href: 'log-admin.html', warna: 'slate', sheetSaja: true, hanyaAdmin: true }
+      { k: 'rekap', label: 'Rekap Absen', judul: 'Rekap Absen Fingerprint', href: 'https://wima15.github.io/rekap-presensi/', luar: true, warna: 'hijau', sheetSaja: true, hanyaAdmin: true }
     ];
-    if (role === 'staf') { // staf: HANYA Kinerja Saya dan Ijin & Dinas Luar
-      return menu.filter(function (it) { return it.k === 'kin' || it.k === 'ijin'; });
+    if (role === 'staf') { // staf: Kinerja Saya, Penilaian Rekan, Ijin & Dinas Luar, dan Presensi
+      return menu.filter(function (it) { return it.k === 'kin' || it.k === 'rekan' || it.k === 'ijin' || it.k === 'presensi'; });
     }
     return menu.filter(function (it) {
+      if (role === 'pengawas' && ['bi', 'pel', 'pgd', 'ijin', 'disiplin', 'rpp', 'rekan', 'presensi', 'presiswa'].indexOf(it.k) >= 0) return false; // pengawas: tanpa data siswa/pegawai pribadi
+      if (it.hanyaCatatan && role !== 'kepsek' && role !== 'pengawas') return false;
       if (it.hanyaAdmin && role !== 'admin') return false;
       if (it.hanyaKepsek && role !== 'kepsek') return false;
-      return !it.hanyaPimpinan || role === 'kepsek' || role === 'admin';
+      return !it.hanyaPimpinan || role === 'kepsek' || role === 'admin' || role === 'pengawas';
     });
   }
 
@@ -111,6 +125,7 @@
   function pilihDua(items, role) {
     var f = bacaFreq(role);
     var kandidat = items.filter(function (it) { return it.k !== 'menu' && !it.sheetSaja; });
+    if (role === 'staf') return kandidat; // staf tidak punya panel "Semua Aplikasi": tampilkan semua di bar
     var urut = kandidat.map(function (it, i) { return { it: it, n: f[it.k] || 0, i: i }; })
       .sort(function (a, b) { return (b.n - a.n) || (a.i - b.i); })
       .slice(0, 2)
@@ -184,9 +199,13 @@
 
   // ---------- render ----------
   var rolePakai = 'guru';
+  // Aplikasi yang disembunyikan developer dibuang dari menu bawah (developer tetap melihat semuanya).
+  var aksesD = null, sudahRender = false;
+  function saringAkses(items) { return (window.AksesAplikasi && aksesD) ? AksesAplikasi.saring(items, aksesD) : items; }
   function render(role) {
     rolePakai = role;
-    var items = daftar(role);
+    sudahRender = true;
+    var items = saringAkses(daftar(role));
     var dua = pilihDua(items, role);
     var adaDiBar = dua.some(function (it) { return it.k === kunciAktif; });
     pastikanRppLauncher();
@@ -259,6 +278,11 @@
     try { sessionStorage.setItem('bnav_role_' + uid, role); } catch (e) {}
   }
 
+  // Peran terakhir yang diketahui portal (kepala sekolah / pengawas), dipakai bila cek peran ke server gagal
+  function roleDariHint() {
+    try { var v = localStorage.getItem('kepsek_hint'); return v === '1' ? 'kepsek' : (v === 'pengawas' ? 'pengawas' : null); } catch (e) { return null; }
+  }
+
   async function cariRole() {
     if (typeof supabaseClient === 'undefined') return 'guru';
     try {
@@ -268,28 +292,39 @@
       var cache = roleTersimpan(user.id);
       if (cache) return cache;
       var pr = await supabaseClient.from('profiles').select('role').eq('id', user.id).single();
-      var role = (pr && pr.data && (pr.data.role === 'admin' || pr.data.role === 'kepsek' || pr.data.role === 'staf')) ? pr.data.role : 'guru';
+      var role = (pr && pr.data && (pr.data.role === 'admin' || pr.data.role === 'kepsek' || pr.data.role === 'pengawas' || pr.data.role === 'staf')) ? pr.data.role : 'guru';
       if (pr && pr.data) simpanRole(user.id, role);
+      else return roleDariHint() || role; // cek peran gagal sesaat: jangan paksa tampilan guru
       return role;
     } catch (e) {
-      return 'guru';
+      return roleDariHint() || 'guru';
     }
   }
 
+  // Halaman bertampilan admin dipakai bersama oleh admin, Kepala Sekolah, dan Pengawas (mode lihat saja),
+  // jadi nama berkas TIDAK cukup untuk menentukan daftar aplikasi: role asli akun yang dipakai.
+  var ROLE_HALAMAN_ADMIN = ['admin', 'kepsek', 'pengawas'];
+
   async function mulai() {
     pasangGaya();
+    if (window.AksesAplikasi) {
+      AksesAplikasi.muat().then(function (d) { aksesD = d; if (sudahRender) render(rolePakai); }).catch(function () { /* gagal baca: tampilkan semua */ });
+    }
     var roleAkhir = roleDariBerkas;
-    if (roleDariBerkas) {
+    var halamanAdmin = roleDariBerkas === 'admin' || roleDariBerkas === 'kepsek';
+    if (roleDariBerkas && !halamanAdmin) {
       render(roleDariBerkas);
     } else {
-      // pkl / pelanggaran / portal / kinerja: role bergantung akun
+      // halaman admin / pkl / pelanggaran / portal / kinerja: role bergantung akun
       var petunjuk = null;
       try { petunjuk = localStorage.getItem('bnav_role_hint'); } catch (e) { /* abaikan */ }
+      if (halamanAdmin && ROLE_HALAMAN_ADMIN.indexOf(petunjuk) < 0) petunjuk = null; // petunjuk guru/staf tidak berlaku di halaman admin
       if (petunjuk) render(petunjuk); // tampil dulu supaya bar tidak "muncul belakangan"
-      var role = await cariRole();
+      var asli = await cariRole(), role = asli, terbaca = true;
+      if (halamanAdmin && ROLE_HALAMAN_ADMIN.indexOf(asli) < 0) { role = roleDariBerkas; terbaca = false; } // gagal baca akun: pakai menu halaman ini
       roleAkhir = role;
-      try { localStorage.setItem('bnav_role_hint', role); } catch (e) { /* abaikan */ }
-      if (role !== petunjuk) render(role); // tanpa petunjuk: bar baru digambar setelah role diketahui (staf tidak melihat menu guru sekilas)
+      if (terbaca) { try { localStorage.setItem('bnav_role_hint', role); } catch (e) { /* abaikan */ } }
+      if (role !== petunjuk) render(role); // tanpa petunjuk: bar baru digambar setelah role diketahui
     }
     // Catat kunjungan SETELAH bar digambar, supaya pilihan 2 aplikasi tidak berubah di tengah halaman yang sedang dibuka.
     catat(roleAkhir || 'guru', kunciAktif);

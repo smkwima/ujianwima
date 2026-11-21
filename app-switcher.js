@@ -4,7 +4,7 @@
  * "Menu Utama / E-Rapor / Buku Induk / Catatan Pelanggaran / ...").
  *
  *  - Satu tombol "Aplikasi" -> panel berisi SEMUA aplikasi sesuai peran:
- *      Guru  : Menu Utama, E-Rapor, Buku Induk, Nilai PKL, Supervisi, Kinerja Saya, Catatan Pelanggaran
+ *      Guru  : Menu Utama, E-Rapor, Buku Induk, Nilai PKL, Supervisi, Kinerja Saya, Penilaian Rekan, Catatan Pelanggaran
  *      Admin : semua milik guru versi admin + Guru & Penugasan + Pengaturan Sekolah + Log Aktivitas
  *  - Aplikasi yang sedang dibuka diberi tanda.
  *  - Kepala Sekolah tidak diubah (memakai kepsek-nav.js).
@@ -28,11 +28,16 @@
     { href: '#', sso: true, judul: 'RPP Maker', ikon: 'sparkles', warna: 'ungu', desc: 'Susun RPM, LKPD, ATP & Prota/Prosem' },
     { href: 'supervisi.html',       judul: 'Supervisi',           ikon: 'clipboard-check',    warna: 'ungu',   desc: 'Jadwal & form supervisi' },
     { href: 'kinerja.html',         judul: 'Kinerja Saya',        ikon: 'award',              warna: 'oranye', desc: 'Ajukan bukti kinerja ke Kepala Sekolah' },
+    { href: 'penilaian-rekan.html',  judul: 'Penilaian Rekan',     ikon: 'users',              warna: 'ungu',   desc: 'Nilai rekan secara anonim' },
     { href: 'pelanggaran.html',     judul: 'Catatan Pelanggaran', ikon: 'shield-alert',       warna: 'merah',  desc: 'Pembinaan kedisiplinan siswa' },
+    { href: 'presensi.html', judul: 'Presensi',          ikon: 'map-pin',            warna: 'hijau',  desc: 'Presensi datang & pulang (selfie + lokasi)' },
+    { href: 'presensi-siswa.html',  judul: 'Presensi Siswa',      ikon: 'user-check',         warna: 'hijau',  desc: 'Presensi siswa kelas wali & rekap PDF' },
     { href: 'ijin.html',            judul: 'Ijin & Dinas Luar',   ikon: 'calendar-off',       warna: 'biru',   desc: 'Ajukan sakit, ijin & dinas luar ke Rekap Absen' }
   ];
   var APP_STAF = [
     { href: 'kinerja.html',         judul: 'Kinerja Saya',        ikon: 'award',              warna: 'oranye', desc: 'Tulis & ajukan bukti kinerja ke Kepala Sekolah' },
+    { href: 'penilaian-rekan.html', judul: 'Penilaian Rekan',     ikon: 'users',              warna: 'ungu',   desc: 'Nilai rekan secara anonim' },
+    { href: 'presensi.html', judul: 'Presensi',          ikon: 'map-pin',            warna: 'hijau',  desc: 'Presensi datang & pulang (selfie + lokasi)' },
     { href: 'ijin.html',            judul: 'Ijin & Dinas Luar',   ikon: 'calendar-off',       warna: 'biru',   desc: 'Ajukan sakit, ijin & dinas luar ke Rekap Absen' }
   ];
   var APP_ADMIN = [
@@ -44,16 +49,18 @@
     { href: '#', sso: true, judul: 'RPP Maker', ikon: 'sparkles', warna: 'ungu', desc: 'Susun RPM, LKPD, ATP & Prota/Prosem' },
     { href: 'supervisi-admin.html',   judul: 'Supervisi',           ikon: 'clipboard-check',    warna: 'ungu',   desc: 'Jadwal, form & data supervisi' },
     { href: 'kinerja.html',           judul: 'Kinerja Guru',        ikon: 'award',              warna: 'oranye', desc: 'Pantau & beri jempol bukti kinerja' },
+    { href: 'penilaian-rekan.html',   judul: 'Penilaian Rekan',     ikon: 'users',              warna: 'ungu',   desc: 'Atur penilaian anonim & pantau progres' },
     { href: 'pelanggaran.html',       judul: 'Catatan Pelanggaran', ikon: 'shield-alert',       warna: 'merah',  desc: 'Pembinaan kedisiplinan siswa' },
     { href: 'pengaduan.html',         judul: 'Pengaduan Siswa',     ikon: 'megaphone',          warna: 'merah',  desc: 'Laporan bullying & pelanggaran dari siswa' },
+    { href: 'presensi.html', judul: 'Presensi',            ikon: 'map-pin',            warna: 'hijau',  desc: 'Presensi, jadwal, lokasi & rekap kehadiran' },
+    { href: 'presensi-siswa.html',    judul: 'Presensi Siswa',      ikon: 'user-check',         warna: 'hijau',  desc: 'Presensi siswa semua kelas, rekap & sinkron e-Rapor' },
     { href: 'ijin.html',              judul: 'Ijin & Dinas Luar',   ikon: 'calendar-off',       warna: 'biru',   desc: 'Pantau pengajuan sakit, ijin & dinas luar' },
     { href: 'https://wima15.github.io/rekap-presensi/', luar: true,  judul: 'Rekap Absen Fingerprint', ikon: 'fingerprint',      warna: 'hijau',  desc: 'Rekap kehadiran guru & staf (tab baru)' },
-    { href: 'pengaturan-admin.html',  judul: 'Pengaturan Sekolah',  ikon: 'settings',           warna: 'abu',    desc: 'Profil, tahun ajaran, kelulusan' },
-    { href: 'log-admin.html',         judul: 'Log Aktivitas',       ikon: 'history',            warna: 'slate',  desc: 'Siapa melakukan apa & kapan' }
+    { href: 'pengaturan-admin.html',  judul: 'Pengaturan Sekolah',  ikon: 'settings',           warna: 'abu',    desc: 'Profil, tahun ajaran, kelulusan' }
   ];
 
   // Halaman yang pasti milik satu peran (dipakai agar menu langsung tampil tanpa menunggu cek role).
-  var HALAMAN_ADMIN = ['admin.html', 'penugasan-admin.html', 'bukuinduk-admin.html', 'supervisi-admin.html', 'pengaturan-admin.html', 'log-admin.html'];
+  var HALAMAN_ADMIN = ['admin.html', 'penugasan-admin.html', 'bukuinduk-admin.html', 'supervisi-admin.html', 'pengaturan-admin.html'];
   // pengaduan.html dipakai admin & kepsek -> role ditentukan dari akun, bukan dari nama berkas.
   var HALAMAN_GURU = ['guru.html', 'bukuinduk-guru.html', 'supervisi.html'];
 
@@ -167,9 +174,12 @@
 
   async function mulai() {
     var role = await tentukanRole();
-    if (role === 'admin') bangun(APP_ADMIN);
-    else if (role === 'guru') bangun(APP_GURU);
-    else if (role === 'staf') bangun(APP_STAF);
+    var akses = null; // aplikasi yang disembunyikan developer dibuang dari menu (developer tetap melihat semuanya)
+    try { akses = window.AksesAplikasi ? await AksesAplikasi.muat() : null; } catch (e) { /* tampilkan semua */ }
+    function saring(l) { return akses ? AksesAplikasi.saring(l, akses) : l; }
+    if (role === 'admin') bangun(saring(APP_ADMIN));
+    else if (role === 'guru') bangun(saring(APP_GURU));
+    else if (role === 'staf') bangun(saring(APP_STAF));
     // 'kepsek' / siswa / belum login: biarkan seperti semula.
   }
 
